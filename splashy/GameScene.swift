@@ -18,6 +18,9 @@ struct PhysicsCategory {
 
 
 class GameScene: SKScene {
+    var gameStarted: Bool = false
+    var spawnDelayForever: SKAction!
+
     var enableUnderwaterPhysics: Bool = true
 
     var hasReferenceFrameTime: Bool = false
@@ -31,12 +34,16 @@ class GameScene: SKScene {
 
     var player: Player!
     var water: SBDynamicWaterNode!
+    var wallPair: SKNode!
+
+    var moveAndRemove: SKAction!
+
     override func didMove(to view: SKView) {
         kSurfaceHeight = self.size.height / 2.5
         OFFSET = kSurfaceHeight / 3.5 // Decrease to make the object float to the surface higher.
 //        Player
         player = Player()
-        player.position = CGPoint(x:150, y:kSurfaceHeight + 50)
+        player.position = CGPoint(x:300, y:kSurfaceHeight + 50)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody?.categoryBitMask = PhysicsCategory.Player
         player.physicsBody?.collisionBitMask = PhysicsCategory.Wall
@@ -48,7 +55,19 @@ class GameScene: SKScene {
         self.addChild(water)
         water.setDefaultValues()
 
-        createWalls()
+        let spawn = SKAction.run {
+            () in
+            self.createWalls()
+        }
+
+        let delay = SKAction.wait(forDuration: 2.0)
+        let spawnDelay = SKAction.sequence([spawn, delay])
+        spawnDelayForever = SKAction.repeatForever(spawnDelay)
+
+        let distance = CGFloat(self.frame.width)
+        let movePipes = SKAction.moveBy(x: -distance, y: 0, duration: TimeInterval(0.0025 * distance))
+        let removePipes = SKAction.removeFromParent()
+        moveAndRemove = SKAction.sequence([movePipes, removePipes])
 
 //        Scene
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -121,6 +140,10 @@ class GameScene: SKScene {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !gameStarted {
+            self.run(spawnDelayForever)
+            gameStarted = true
+        }
         enableUnderwaterPhysics = false
         if !player.isAboveWater {
             player.physicsBody?.velocity = CGVector(dx: 0, dy: (player.physicsBody?.velocity.dy)! / 2)
@@ -136,7 +159,7 @@ class GameScene: SKScene {
     }
 
     func createWalls() {
-        let wallPair = SKNode()
+        wallPair = SKNode()
 
         let topWall = SKSpriteNode(texture: nil, color: UIColor.green, size: CGSize(width: 80, height: 1000))
         let bottomWall = SKSpriteNode(texture: nil, color: UIColor.green, size: CGSize(width: 80, height: 1000))
@@ -163,6 +186,11 @@ class GameScene: SKScene {
 
         wallPair.addChild(topWall)
         wallPair.addChild(bottomWall)
+
+        let randomPosition = CGFloat.random(min: -200, max: 200)
+        wallPair.position.y = wallPair.position.y + randomPosition
+
+        wallPair.run(moveAndRemove)
 
         self.addChild(wallPair)
     }

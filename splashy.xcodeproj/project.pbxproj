@@ -20,6 +20,7 @@
 		63DBF54021A35BAE000B7160 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DBF53E21A35BAE000B7160 /* LaunchScreen.storyboard */; };
 		63DBF54B21A35BAE000B7160 /* splashyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DBF54A21A35BAE000B7160 /* splashyTests.swift */; };
 		63DBF55621A35BAE000B7160 /* splashyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DBF55521A35BAE000B7160 /* splashyUITests.swift */; };
+		63FD77C321A5B0AB00E38F4F /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD77C221A5B0AB00E38F4F /* utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		63DBF55121A35BAE000B7160 /* splashyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = splashyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DBF55521A35BAE000B7160 /* splashyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splashyUITests.swift; sourceTree = "<group>"; };
 		63DBF55721A35BAE000B7160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63FD77C221A5B0AB00E38F4F /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				63DBF53C21A35BAE000B7160 /* Assets.xcassets */,
 				63DBF53E21A35BAE000B7160 /* LaunchScreen.storyboard */,
 				63DBF54121A35BAE000B7160 /* Info.plist */,
+				63FD77C221A5B0AB00E38F4F /* utils.swift */,
 			);
 			path = splashy;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				63DBF53621A35BAC000B7160 /* GameScene.swift in Sources */,
 				63DBF53821A35BAC000B7160 /* GameViewController.swift in Sources */,
 				632F613021A379D100B80D6E /* SBDynamicWaterNode.m in Sources */,
+				63FD77C321A5B0AB00E38F4F /* utils.swift in Sources */,
 				633D7ABF21A3FF50007118C4 /* player.swift in Sources */,
 				63DBF53021A35BAC000B7160 /* AppDelegate.swift in Sources */,
 			);

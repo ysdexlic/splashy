@@ -30,6 +30,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var wallPair: SKNode!
     var scoreNode: SKSpriteNode!
 
+    // Labels
+    var scoreLabel: SKLabelNode!
+
     // Actions
     var spawnDelayForever: SKAction!
     var moveAndRemove: SKAction!
@@ -123,7 +126,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Player is going underwater
         if player.isAboveWater && Float(y) <= water.surfaceHeight {
             player.isAboveWater = false
-            water.splashAt(x:Float(x), force:-yVel! * 0.125, width:20)
+            water.splashAt(x:Float(x), force:-yVel! * 0.075, width:20)
         }
         // Player is going above water
         if !player.isAboveWater && Float(y) > water.surfaceHeight {
@@ -152,7 +155,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enableUnderwaterPhysics = true
         if !player.isAboveWater {
             let playerY = player.position.y
-            player.physicsBody?.velocity = CGVector(dx: 0, dy: 5 * (kSurfaceHeight - playerY))
+            player.physicsBody?.velocity = CGVector(dx: 0, dy: 6.25 * (kSurfaceHeight - playerY))
         }
     }
 

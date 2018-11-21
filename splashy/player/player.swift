@@ -24,7 +24,7 @@ class Player: SKSpriteNode {
     }
 
     func applyUnderwaterPhysics(waterY: CGFloat, surfaceHeight: CGFloat) {
-        OFFSET = surfaceHeight / 3.5 // Decrease to make the object float to the surface higher.
+        OFFSET = surfaceHeight / 7 // Decrease to make the object float to the surface higher.
         let rate: CGFloat = 0.01 //Controls rate of applied motion. You shouldn't really need to touch this.
         let x = (waterY+(surfaceHeight - OFFSET))+surfaceHeight/2.0
         let y = (self.position.y)-self.size.height/2.0

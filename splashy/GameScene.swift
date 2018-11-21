@@ -16,6 +16,9 @@ class GameScene: SKScene {
     let kFixedTimeStep = 1.0 / 500
     let kSurfaceHeight = 235
 
+    let VISCOSITY: CGFloat = 4 //Increase to make the water "thicker/stickier," creating more friction.
+    let BUOYANCY: CGFloat = 0.4 //Slightly increase to make the object "float up faster," more buoyant.
+    let OFFSET: CGFloat = 50 //Decrease to make the object float to the surface higher.
 
     var player: Player!
     var water: SBDynamicWaterNode!
@@ -53,6 +56,27 @@ class GameScene: SKScene {
         self.fixedUpdate(accumilator)
 
         self.lateUpdate(dt)
+
+        let minX = CGFloat(0)
+        let minY = CGFloat(0)
+        let maxX = CGFloat(water.getWidth())
+        let maxY = CGFloat(water.surfaceHeight)
+
+        let playerX = player.position.x
+        let playerY = player.position.y
+
+        if (minX <= playerX && playerX <= maxX) && (minY <= playerY && playerY <= maxY) {
+
+            let rate: CGFloat = 0.01; //Controls rate of applied motion. You shouldn't really need to touch this.
+            let waterY = water.position.y
+            let x = (waterY+(CGFloat(kSurfaceHeight) - OFFSET))+CGFloat(kSurfaceHeight)/2.0
+            let y = (player.position.y)-player.size.height/2.0
+            let disp = (x-y) * BUOYANCY
+            let targetPos = CGPoint(x: player.position.x, y: player.position.y+disp)
+            let targetVel = CGPoint(x: (targetPos.x-player.position.x)/(1.0/60.0), y: (targetPos.y-player.position.y)/(1.0/60.0))
+            let relVel: CGVector = CGVector(dx:targetVel.x-(player.physicsBody?.velocity.dx)!*VISCOSITY, dy:targetVel.y-(player.physicsBody?.velocity.dy)!*VISCOSITY);
+            player.physicsBody?.velocity=CGVector(dx:(player.physicsBody?.velocity.dx)!+relVel.dx*rate, dy:(player.physicsBody?.velocity.dy)!+relVel.dy*rate);
+        }
 
         self.lastFrameTime = currentTime
     }

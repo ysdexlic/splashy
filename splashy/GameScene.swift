@@ -14,10 +14,12 @@ import GameplayKit
 struct PhysicsCategory {
     static let Player: UInt32 = 0x1 << 1
     static let Wall: UInt32 = 0x1 << 2
+    static let Score: UInt32 = 0x1 << 3
 }
 
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
+    var score: Int = 0
     var gameStarted: Bool = false
     var spawnDelayForever: SKAction!
 
@@ -35,19 +37,24 @@ class GameScene: SKScene {
     var player: Player!
     var water: SBDynamicWaterNode!
     var wallPair: SKNode!
+    var scoreNode: SKSpriteNode!
 
     var moveAndRemove: SKAction!
 
     override func didMove(to view: SKView) {
         kSurfaceHeight = self.size.height / 2.5
         OFFSET = kSurfaceHeight / 3.5 // Decrease to make the object float to the surface higher.
+
+        self.physicsWorld.contactDelegate = self
+
+
 //        Player
         player = Player()
         player.position = CGPoint(x:300, y:kSurfaceHeight + 50)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody?.categoryBitMask = PhysicsCategory.Player
         player.physicsBody?.collisionBitMask = PhysicsCategory.Wall
-        player.physicsBody?.contactTestBitMask = PhysicsCategory.Wall
+        player.physicsBody?.contactTestBitMask = PhysicsCategory.Wall | PhysicsCategory.Score
         self.addChild(player)
 //        Water
         water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0, green:0, blue:1, alpha:0.5))
@@ -159,16 +166,29 @@ class GameScene: SKScene {
     }
 
     func createWalls() {
+        scoreNode = SKSpriteNode()
         wallPair = SKNode()
 
-        let topWall = SKSpriteNode(texture: nil, color: UIColor.green, size: CGSize(width: 80, height: 1000))
-        let bottomWall = SKSpriteNode(texture: nil, color: UIColor.green, size: CGSize(width: 80, height: 1000))
+        let gapSize = CGFloat(350)
+        let wallScale = CGFloat(0.5)
 
-        topWall.position = CGPoint(x: self.frame.width, y: self.frame.height / 2 + 350)
-        bottomWall.position = CGPoint(x: self.frame.width, y: self.frame.height / 2 - 350)
+        let topWall = SKSpriteNode(texture: nil, color: UIColor.green, size: CGSize(width: 40, height: 1000))
+        let bottomWall = SKSpriteNode(texture: nil, color: UIColor.green, size: CGSize(width: 40, height: 1000))
 
-        topWall.setScale(0.5)
-        bottomWall.setScale(0.5)
+        scoreNode.size = CGSize(width: 1, height: (gapSize * 2) - (topWall.size.height * wallScale))
+        scoreNode.position = CGPoint(x: self.frame.width, y: self.frame.height / 2)
+        scoreNode.physicsBody = SKPhysicsBody(rectangleOf: scoreNode.size)
+        scoreNode.physicsBody?.categoryBitMask = PhysicsCategory.Score
+        scoreNode.physicsBody?.collisionBitMask = 0
+        scoreNode.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        scoreNode.physicsBody?.affectedByGravity = false
+        scoreNode.physicsBody?.isDynamic = false
+
+        topWall.position = CGPoint(x: self.frame.width, y: self.frame.height / 2 + gapSize)
+        bottomWall.position = CGPoint(x: self.frame.width, y: self.frame.height / 2 - gapSize)
+
+        topWall.setScale(wallScale)
+        bottomWall.setScale(wallScale)
 
         topWall.physicsBody = SKPhysicsBody(rectangleOf: topWall.size)
         topWall.physicsBody?.categoryBitMask = PhysicsCategory.Wall
@@ -190,8 +210,20 @@ class GameScene: SKScene {
         let randomPosition = CGFloat.random(min: -200, max: 200)
         wallPair.position.y = wallPair.position.y + randomPosition
 
+        wallPair.addChild(scoreNode)
+
         wallPair.run(moveAndRemove)
 
         self.addChild(wallPair)
+    }
+
+    func didBegin(_ contact: SKPhysicsContact) {
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
+
+        if firstBody.categoryBitMask == PhysicsCategory.Score && secondBody.categoryBitMask == PhysicsCategory.Player || firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Score {
+            score += 1
+            print("Score: ", score)
+        }
     }
 }

@@ -10,26 +10,32 @@
 import SpriteKit
 import GameplayKit
 
+let surfaceHeight = CGFloat(400)
+
 class GameScene: SKScene {
+    var fingerY: CGFloat!
+    var diffY: CGFloat!
+    var enableUnderwaterPhysics: Bool = true
+
     var hasReferenceFrameTime: Bool = false
     var lastFrameTime: CFTimeInterval!
     let kFixedTimeStep = 1.0 / 500
-    let kSurfaceHeight = 235
+    let kSurfaceHeight = surfaceHeight
 
     let VISCOSITY: CGFloat = 4 //Increase to make the water "thicker/stickier," creating more friction.
     let BUOYANCY: CGFloat = 0.4 //Slightly increase to make the object "float up faster," more buoyant.
-    let OFFSET: CGFloat = 50 //Decrease to make the object float to the surface higher.
+    let OFFSET: CGFloat = surfaceHeight/3 //Decrease to make the object float to the surface higher.
 
     var player: Player!
     var water: SBDynamicWaterNode!
     override func didMove(to view: SKView) {
 //        Player
         player = Player()
-        player.position = CGPoint(x:50, y:250)
+        player.position = CGPoint(x:150, y:kSurfaceHeight + 50)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         self.addChild(player)
 //        Water
-        water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:235, fillColour: UIColor(red:0, green:0, blue:1, alpha:0.5))
+        water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0, green:0, blue:1, alpha:0.5))
         water.position = CGPoint(x:self.size.width/2, y:0)
         self.addChild(water)
         water.setDefaultValues()
@@ -65,11 +71,11 @@ class GameScene: SKScene {
         let playerX = player.position.x
         let playerY = player.position.y
 
-        if (minX <= playerX && playerX <= maxX) && (minY <= playerY && playerY <= maxY) {
+        if (minX <= playerX && playerX <= maxX) && (minY <= playerY && playerY <= maxY) && enableUnderwaterPhysics {
 
             let rate: CGFloat = 0.01; //Controls rate of applied motion. You shouldn't really need to touch this.
             let waterY = water.position.y
-            let x = (waterY+(CGFloat(kSurfaceHeight) - OFFSET))+CGFloat(kSurfaceHeight)/2.0
+            let x = (waterY+(kSurfaceHeight - OFFSET))+kSurfaceHeight/2.0
             let y = (player.position.y)-player.size.height/2.0
             let disp = (x-y) * BUOYANCY
             let targetPos = CGPoint(x: player.position.x, y: player.position.y+disp)
@@ -94,6 +100,8 @@ class GameScene: SKScene {
         }
         if (!player.isAboveWater && Float(y) > water.surfaceHeight) {
             player.isAboveWater = true
+//            lower multiplier due to velocity put on when jumping from water
+            water.splashAt(x:Float(x), force:-yVel! * 0.05, width:20)
         }
     }
 
@@ -101,9 +109,18 @@ class GameScene: SKScene {
         water.render()
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            fingerY = touch.location(in: self).y
+            enableUnderwaterPhysics = false
+        }
+    }
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first!
-        player.position = touch.location(in: self)
-        player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        fingerY = nil
+        diffY = nil
+        enableUnderwaterPhysics = true
+        let playerY = player.position.y
+        player.physicsBody?.velocity = CGVector(dx: 0, dy: 3.8 * (kSurfaceHeight - playerY))
     }
 }

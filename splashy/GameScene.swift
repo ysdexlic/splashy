@@ -21,6 +21,7 @@ struct PhysicsCategory {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     // Defaults
     var score: Int = 0
+    var died: Bool = false
     var gameStarted: Bool = false
     var enableUnderwaterPhysics: Bool = true
 
@@ -29,6 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var water: SBDynamicWaterNode!
     var wallPair: SKNode!
     var scoreNode: SKSpriteNode!
+    var restartButton: SKSpriteNode!
 
     // Labels
     var scoreLabel: SKLabelNode!
@@ -48,12 +50,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let BUOYANCY: CGFloat = 0.4 // Slightly increase to make the object "float up faster," more buoyant.
     var OFFSET: CGFloat!
 
-    override func didMove(to view: SKView) {
+    func restartScene() {
+        self.removeAllChildren()
+        self.removeAllActions()
+        died = false
+        gameStarted = false
+        score = 0
+        createScene()
+    }
+
+    func createScene() {
         kSurfaceHeight = self.size.height / 2.5
         OFFSET = kSurfaceHeight / 3.5 // Decrease to make the object float to the surface higher.
 
         self.physicsWorld.contactDelegate = self
 
+
+        // Score Label
+        scoreLabel = SKLabelNode()
+        scoreLabel.fontSize = 50
+        scoreLabel.position = CGPoint(x: self.frame.width / 2, y: (self.frame.height / 2) + (self.frame.height / 2.5))
+        scoreLabel.zPosition = 5
+        scoreLabel.text = "\(score)"
+        self.addChild(scoreLabel)
 
         // Player
         player = Player()
@@ -87,6 +106,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Scene
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+    }
+
+    override func didMove(to view: SKView) {
+        createScene()
     }
 
     override func update(_ currentTime: CFTimeInterval) {
@@ -145,6 +168,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.run(spawnDelayForever)
             gameStarted = true
         }
+        // you ded
+        if died {
+            return
+        }
         enableUnderwaterPhysics = false
         if !player.isAboveWater {
             player.physicsBody?.velocity = CGVector(dx: 0, dy: (player.physicsBody?.velocity.dy)! / 2)
@@ -153,9 +180,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         enableUnderwaterPhysics = true
-        if !player.isAboveWater {
+        if !died && !player.isAboveWater {
             let playerY = player.position.y
             player.physicsBody?.velocity = CGVector(dx: 0, dy: 6.25 * (kSurfaceHeight - playerY))
+        }
+
+        for touch in touches {
+            let location = touch.location(in: self)
+
+            if died {
+                if restartButton.contains(location) {
+                    restartScene()
+                }
+            }
         }
     }
 
@@ -211,13 +248,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(wallPair)
     }
 
+    func createRestartButton() {
+        restartButton = SKSpriteNode(color: UIColor.white, size: CGSize(width: 300, height: 200))
+        restartButton.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        restartButton.zPosition = 6
+        self.addChild(restartButton)
+    }
+
     func didBegin(_ contact: SKPhysicsContact) {
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
 
-        if firstBody.categoryBitMask == PhysicsCategory.Score && secondBody.categoryBitMask == PhysicsCategory.Player || firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Score {
+        if !died && (firstBody.categoryBitMask == PhysicsCategory.Score && secondBody.categoryBitMask == PhysicsCategory.Player || firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Score) {
             score += 1
-            print("Score: ", score)
+            scoreLabel.text = "\(score)"
+        }
+
+        if firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Wall || firstBody.categoryBitMask == PhysicsCategory.Wall && secondBody.categoryBitMask == PhysicsCategory.Player {
+            died = true
+            createRestartButton()
         }
     }
 }

@@ -19,27 +19,31 @@ struct PhysicsCategory {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    // Defaults
     var score: Int = 0
     var gameStarted: Bool = false
-    var spawnDelayForever: SKAction!
-
     var enableUnderwaterPhysics: Bool = true
 
-    var hasReferenceFrameTime: Bool = false
-    var lastFrameTime: CFTimeInterval!
-    let kFixedTimeStep = 1.0 / 500
-    var kSurfaceHeight: CGFloat!
-
-    let VISCOSITY: CGFloat = 4 // Increase to make the water "thicker/stickier," creating more friction.
-    let BUOYANCY: CGFloat = 0.4 // Slightly increase to make the object "float up faster," more buoyant.
-    var OFFSET: CGFloat!
-
+    // Sprites / Nodes
     var player: Player!
     var water: SBDynamicWaterNode!
     var wallPair: SKNode!
     var scoreNode: SKSpriteNode!
 
+    // Actions
+    var spawnDelayForever: SKAction!
     var moveAndRemove: SKAction!
+
+    // Water Animation
+    var hasReferenceFrameTime: Bool = false
+    var lastFrameTime: CFTimeInterval!
+    let kFixedTimeStep = 1.0 / 500
+    var kSurfaceHeight: CGFloat!
+
+    // Water Physics
+    let VISCOSITY: CGFloat = 4 // Increase to make the water "thicker/stickier," creating more friction.
+    let BUOYANCY: CGFloat = 0.4 // Slightly increase to make the object "float up faster," more buoyant.
+    var OFFSET: CGFloat!
 
     override func didMove(to view: SKView) {
         kSurfaceHeight = self.size.height / 2.5
@@ -48,7 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.contactDelegate = self
 
 
-//        Player
+        // Player
         player = Player()
         player.position = CGPoint(x:300, y:kSurfaceHeight + 50)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
@@ -56,12 +60,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.collisionBitMask = PhysicsCategory.Wall
         player.physicsBody?.contactTestBitMask = PhysicsCategory.Wall | PhysicsCategory.Score
         self.addChild(player)
-//        Water
+
+        // Water
         water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0, green:0, blue:1, alpha:0.5))
         water.position = CGPoint(x:self.size.width/2, y:0)
         self.addChild(water)
         water.setDefaultValues()
 
+        // Walls
         let spawn = SKAction.run {
             () in
             self.createWalls()
@@ -76,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let removePipes = SKAction.removeFromParent()
         moveAndRemove = SKAction.sequence([movePipes, removePipes])
 
-//        Scene
+        // Scene
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
     }
 
@@ -98,29 +104,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         self.fixedUpdate(accumilator)
 
-        self.lateUpdate(dt)
-
-        let minX = CGFloat(0)
-        let minY = CGFloat(0)
-        let maxX = CGFloat(water.getWidth())
-        let maxY = CGFloat(water.surfaceHeight)
-
-        let playerX = player.position.x
-        let playerY = player.position.y
-
-        if (minX <= playerX && playerX <= maxX) && (minY <= playerY && playerY <= maxY) && enableUnderwaterPhysics {
-
-            let rate: CGFloat = 0.01; //Controls rate of applied motion. You shouldn't really need to touch this.
-            let waterY = water.position.y
-            let x = (waterY+(kSurfaceHeight - OFFSET))+kSurfaceHeight/2.0
-            let y = (player.position.y)-player.size.height/2.0
-            let disp = (x-y) * BUOYANCY
-            let targetPos = CGPoint(x: player.position.x, y: player.position.y+disp)
-            let targetVel = CGPoint(x: (targetPos.x-player.position.x)/(1.0/60.0), y: (targetPos.y-player.position.y)/(1.0/60.0))
-            let relVel: CGVector = CGVector(dx:targetVel.x-(player.physicsBody?.velocity.dx)!*VISCOSITY, dy:targetVel.y-(player.physicsBody?.velocity.dy)!*VISCOSITY);
-            player.physicsBody?.velocity=CGVector(dx:(player.physicsBody?.velocity.dx)!+relVel.dx*rate, dy:(player.physicsBody?.velocity.dy)!+relVel.dy*rate);
+        // Player is underwater
+        if !player.isAboveWater && enableUnderwaterPhysics {
+            player.applyUnderwaterPhysics(waterY: water.position.y, surfaceHeight: kSurfaceHeight)
         }
 
+        self.lateUpdate(dt)
         self.lastFrameTime = currentTime
     }
 
@@ -131,13 +120,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let x = player.position.x
         let yVel = player.physicsBody?.velocity.dy
 
-        if (player.isAboveWater && Float(y) <= water.surfaceHeight) {
+        // Player is going underwater
+        if player.isAboveWater && Float(y) <= water.surfaceHeight {
             player.isAboveWater = false
             water.splashAt(x:Float(x), force:-yVel! * 0.125, width:20)
         }
-        if (!player.isAboveWater && Float(y) > water.surfaceHeight) {
+        // Player is going above water
+        if !player.isAboveWater && Float(y) > water.surfaceHeight {
             player.isAboveWater = true
-//            lower multiplier due to velocity put on when jumping from water
+            // lower multiplier due to velocity put on when jumping from water
             water.splashAt(x:Float(x), force:-yVel! * 0.05, width:20)
         }
     }
@@ -148,7 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if !gameStarted {
-            self.run(spawnDelayForever)
+//            self.run(spawnDelayForever)
             gameStarted = true
         }
         enableUnderwaterPhysics = false

@@ -11,6 +11,12 @@ import SpriteKit
 import GameplayKit
 
 
+struct PhysicsCategory {
+    static let Player: UInt32 = 0x1 << 1
+    static let Wall: UInt32 = 0x1 << 2
+}
+
+
 class GameScene: SKScene {
     var enableUnderwaterPhysics: Bool = true
 
@@ -32,12 +38,18 @@ class GameScene: SKScene {
         player = Player()
         player.position = CGPoint(x:150, y:kSurfaceHeight + 50)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+        player.physicsBody?.categoryBitMask = PhysicsCategory.Player
+        player.physicsBody?.collisionBitMask = PhysicsCategory.Wall
+        player.physicsBody?.contactTestBitMask = PhysicsCategory.Wall
         self.addChild(player)
 //        Water
         water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0, green:0, blue:1, alpha:0.5))
         water.position = CGPoint(x:self.size.width/2, y:0)
         self.addChild(water)
         water.setDefaultValues()
+
+        createWalls()
+
 //        Scene
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
     }
@@ -121,5 +133,37 @@ class GameScene: SKScene {
             let playerY = player.position.y
             player.physicsBody?.velocity = CGVector(dx: 0, dy: 5 * (kSurfaceHeight - playerY))
         }
+    }
+
+    func createWalls() {
+        let wallPair = SKNode()
+
+        let topWall = SKSpriteNode(texture: nil, color: UIColor.green, size: CGSize(width: 80, height: 1000))
+        let bottomWall = SKSpriteNode(texture: nil, color: UIColor.green, size: CGSize(width: 80, height: 1000))
+
+        topWall.position = CGPoint(x: self.frame.width, y: self.frame.height / 2 + 350)
+        bottomWall.position = CGPoint(x: self.frame.width, y: self.frame.height / 2 - 350)
+
+        topWall.setScale(0.5)
+        bottomWall.setScale(0.5)
+
+        topWall.physicsBody = SKPhysicsBody(rectangleOf: topWall.size)
+        topWall.physicsBody?.categoryBitMask = PhysicsCategory.Wall
+        topWall.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        topWall.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        topWall.physicsBody?.affectedByGravity = false
+        topWall.physicsBody?.isDynamic = false
+
+        bottomWall.physicsBody = SKPhysicsBody(rectangleOf: topWall.size)
+        bottomWall.physicsBody?.categoryBitMask = PhysicsCategory.Wall
+        bottomWall.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        bottomWall.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        bottomWall.physicsBody?.affectedByGravity = false
+        bottomWall.physicsBody?.isDynamic = false
+
+        wallPair.addChild(topWall)
+        wallPair.addChild(bottomWall)
+
+        self.addChild(wallPair)
     }
 }

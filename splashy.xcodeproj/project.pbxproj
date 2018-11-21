@@ -21,6 +21,7 @@
 		63DBF54B21A35BAE000B7160 /* splashyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DBF54A21A35BAE000B7160 /* splashyTests.swift */; };
 		63DBF55621A35BAE000B7160 /* splashyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DBF55521A35BAE000B7160 /* splashyUITests.swift */; };
 		63FD77C321A5B0AB00E38F4F /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD77C221A5B0AB00E38F4F /* utils.swift */; };
+		63FD77C521A60BCB00E38F4F /* dolphin.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 63FD77C421A60BCB00E38F4F /* dolphin.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		63DBF55521A35BAE000B7160 /* splashyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splashyUITests.swift; sourceTree = "<group>"; };
 		63DBF55721A35BAE000B7160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63FD77C221A5B0AB00E38F4F /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		63FD77C421A60BCB00E38F4F /* dolphin.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dolphin.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		633D7ABD21A3FF45007118C4 /* player */ = {
 			isa = PBXGroup;
 			children = (
+				63FD77C421A60BCB00E38F4F /* dolphin.atlas */,
 				633D7ABE21A3FF50007118C4 /* player.swift */,
 			);
 			path = player;
@@ -275,6 +278,7 @@
 				634A976A21A41432009263BD /* Droplet.png in Resources */,
 				63DBF53B21A35BAC000B7160 /* Main.storyboard in Resources */,
 				63DBF53221A35BAC000B7160 /* GameScene.sks in Resources */,
+				63FD77C521A60BCB00E38F4F /* dolphin.atlas in Resources */,
 				63DBF53D21A35BAE000B7160 /* Assets.xcassets in Resources */,
 				63DBF54021A35BAE000B7160 /* LaunchScreen.storyboard in Resources */,
 				63DBF53421A35BAC000B7160 /* Actions.sks in Resources */,

@@ -15,8 +15,13 @@ class Player: SKSpriteNode {
     let BUOYANCY: CGFloat = 0.4 // Slightly increase to make the object "float up faster," more buoyant.
     var OFFSET: CGFloat!
 
-    init() {
-        super.init(texture: nil, color: UIColor.red, size: CGSize(width: 50, height: 50))
+    init(texture: SKTexture, debug: Bool = false) {
+        super.init(texture: texture, color: UIColor.red, size: CGSize(width: 100, height: 50))
+        if debug {
+            let debugFrame = SKShapeNode(rect: self.frame)
+            debugFrame.strokeColor = UIColor.green
+            self.addChild(debugFrame)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

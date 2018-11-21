@@ -10,25 +10,24 @@
 import SpriteKit
 import GameplayKit
 
-let surfaceHeight = CGFloat(400)
 
 class GameScene: SKScene {
-    var fingerY: CGFloat!
-    var diffY: CGFloat!
     var enableUnderwaterPhysics: Bool = true
 
     var hasReferenceFrameTime: Bool = false
     var lastFrameTime: CFTimeInterval!
     let kFixedTimeStep = 1.0 / 500
-    let kSurfaceHeight = surfaceHeight
+    var kSurfaceHeight: CGFloat!
 
-    let VISCOSITY: CGFloat = 4 //Increase to make the water "thicker/stickier," creating more friction.
-    let BUOYANCY: CGFloat = 0.4 //Slightly increase to make the object "float up faster," more buoyant.
-    let OFFSET: CGFloat = surfaceHeight/3 //Decrease to make the object float to the surface higher.
+    let VISCOSITY: CGFloat = 4 // Increase to make the water "thicker/stickier," creating more friction.
+    let BUOYANCY: CGFloat = 0.4 // Slightly increase to make the object "float up faster," more buoyant.
+    var OFFSET: CGFloat!
 
     var player: Player!
     var water: SBDynamicWaterNode!
     override func didMove(to view: SKView) {
+        kSurfaceHeight = self.size.height / 2.5
+        OFFSET = kSurfaceHeight / 3.5 // Decrease to make the object float to the surface higher.
 //        Player
         player = Player()
         player.position = CGPoint(x:150, y:kSurfaceHeight + 50)
@@ -110,17 +109,17 @@ class GameScene: SKScene {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            fingerY = touch.location(in: self).y
-            enableUnderwaterPhysics = false
+        enableUnderwaterPhysics = false
+        if !player.isAboveWater {
+            player.physicsBody?.velocity = CGVector(dx: 0, dy: (player.physicsBody?.velocity.dy)! / 2)
         }
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        fingerY = nil
-        diffY = nil
         enableUnderwaterPhysics = true
-        let playerY = player.position.y
-        player.physicsBody?.velocity = CGVector(dx: 0, dy: 3.8 * (kSurfaceHeight - playerY))
+        if !player.isAboveWater {
+            let playerY = player.position.y
+            player.physicsBody?.velocity = CGVector(dx: 0, dy: 5 * (kSurfaceHeight - playerY))
+        }
     }
 }

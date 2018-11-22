@@ -28,6 +28,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isFirstTouch: Bool = false
     var enableUnderwaterPhysics: Bool = true
 
+    let limitWaterFPS: Bool = false
+    let waterFPS: Double = 1.0 / 20
+
     // Sprites / Nodes
     var player: Player!
     var water: SBDynamicWaterNode!
@@ -46,13 +49,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Water Animation
     var hasReferenceFrameTime: Bool = false
     var lastFrameTime: CFTimeInterval!
+    var lastUpdated: CFTimeInterval!
     let kFixedTimeStep = 1.0 / 500
     var kSurfaceHeight: CGFloat!
-
-    // Water Physics
-    let VISCOSITY: CGFloat = 4 // Increase to make the water "thicker/stickier," creating more friction.
-    let BUOYANCY: CGFloat = 0.4 // Slightly increase to make the object "float up faster," more buoyant.
-    var OFFSET: CGFloat!
 
     func restartScene() {
         self.removeAllChildren()
@@ -67,11 +66,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func createScene() {
-        kSurfaceHeight = self.size.height / 2.5
-        OFFSET = kSurfaceHeight / 3.5 // Decrease to make the object float to the surface higher.
-
         self.physicsWorld.contactDelegate = self
 
+        kSurfaceHeight = self.size.height / 2.5
 
         // Background
         for i in 0..<2 {
@@ -119,13 +116,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func update(_ currentTime: CFTimeInterval) {
-
         // Background animation
         if gameStarted && !died {
             enumerateChildNodes(withName: "background", using: {
                 (node, err) in
                 let bg = node as! SKSpriteNode
-                bg.position = CGPoint(x: bg.position.x - 1, y: bg.position.y)
+                bg.position = CGPoint(x: bg.position.x - 2, y: bg.position.y)
 
                 if bg.position.x <= -bg.size.width {
                     bg.position = CGPoint(x: bg.position.x + bg.size.width * 2, y: bg.position.y)
@@ -134,6 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         if (!self.hasReferenceFrameTime) {
+            self.lastUpdated = currentTime
             self.lastFrameTime = currentTime
             self.hasReferenceFrameTime = true
             return
@@ -155,7 +152,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             player.applyUnderwaterPhysics(waterY: water.position.y, surfaceHeight: kSurfaceHeight)
         }
 
-        self.lateUpdate(dt)
+        self.lateUpdate(currentTime)
         self.lastFrameTime = currentTime
     }
 
@@ -180,7 +177,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func lateUpdate(_ currentTime: CFTimeInterval) {
-        water.render()
+        if limitWaterFPS {
+            if currentTime - lastUpdated >= waterFPS {
+                water.render()
+                lastUpdated = currentTime
+            }
+        } else {
+            water.render()
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

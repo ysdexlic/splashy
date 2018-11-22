@@ -40,10 +40,9 @@ class Player: SKSpriteNode {
         self.physicsBody?.velocity=CGVector(dx:(self.physicsBody?.velocity.dx)!+relVel.dx*rate, dy:(self.physicsBody?.velocity.dy)!+relVel.dy*rate)
     }
 
-    func goDown(waterY: CGFloat, surfaceHeight: CGFloat) {
-        OFFSET = surfaceHeight / 7 // Decrease to make the object float to the surface higher.
+    func goDown(surfaceHeight: CGFloat) {
         let rate: CGFloat = 0.01 //Controls rate of applied motion. You shouldn't really need to touch this.
-        let targetPos = CGPoint(x: self.position.x, y: 0)
+        let targetPos = CGPoint(x: self.position.x, y: self.position.y + 10)
         let targetVel = CGPoint(x: (targetPos.x-self.position.x)/(1.0/60.0), y: (targetPos.y-self.position.y)/(1.0/60.0))
         let relVel: CGVector = CGVector(dx:targetVel.x-(self.physicsBody?.velocity.dx)!*VISCOSITY, dy:targetVel.y-(self.physicsBody?.velocity.dy)!*VISCOSITY)
         self.physicsBody?.velocity=CGVector(dx:(self.physicsBody?.velocity.dx)!+relVel.dx*rate, dy:(self.physicsBody?.velocity.dy)!+relVel.dy*rate)

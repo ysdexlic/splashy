@@ -27,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var restartCount: Int = 0
     var isFirstTouch: Bool = false
     var enableUnderwaterPhysics: Bool = true
+    var ranDeathAnimation: Bool = false
 
     let limitWaterFPS: Bool = false
     let waterFPS: Double = 1.0 / 20
@@ -58,6 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.removeAllActions()
         player.removeAllActions()
         died = false
+        ranDeathAnimation = false
         gameStarted = false
         restartCount += 1
         score = 0
@@ -148,8 +150,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.fixedUpdate(accumilator)
 
         // Player is underwater
-        if !player.isAboveWater && enableUnderwaterPhysics {
-            player.applyUnderwaterPhysics(waterY: water.position.y, surfaceHeight: kSurfaceHeight)
+         if !player.isAboveWater {
+            if enableUnderwaterPhysics {
+                player.applyUnderwaterPhysics(waterY: water.position.y, surfaceHeight: kSurfaceHeight)
+            } else {
+                player.goDown(surfaceHeight: kSurfaceHeight)
+            }
         }
 
         self.lateUpdate(currentTime)
@@ -376,6 +382,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.run(spawnDelayForever)
     }
 
+    func runDeathAnimation() {
+        if !ranDeathAnimation {
+            ranDeathAnimation = true
+            player.physicsBody?.angularVelocity = 0
+            let rotateAction = SKAction.rotate(toAngle: .pi, duration: 1.5, shortestUnitArc: true)
+            player.run(rotateAction)
+        }
+    }
+
     func didBegin(_ contact: SKPhysicsContact) {
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
@@ -394,11 +409,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             })
             if !died {
                 died = true
+                ranDeathAnimation = false
                 enableUnderwaterPhysics = true
-                player.removeAllActions()
                 // Keep appearance of forward movement
-                player.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 0))
+                player.physicsBody?.applyImpulse(CGVector(dx: 20, dy: 0))
+                player.removeAllActions()
                 createRestartButton()
+            }
+        }
+
+        // Player hits water
+        if (firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Water || firstBody.categoryBitMask == PhysicsCategory.Water && secondBody.categoryBitMask == PhysicsCategory.Player) {
+            if died {
+                runDeathAnimation()
             }
         }
     }
@@ -408,13 +431,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let secondBody = contact.bodyB
 
         // Player hits water
-        if !died && (firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Water || firstBody.categoryBitMask == PhysicsCategory.Water && secondBody.categoryBitMask == PhysicsCategory.Player) {
+        if (firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Water || firstBody.categoryBitMask == PhysicsCategory.Water && secondBody.categoryBitMask == PhysicsCategory.Player) {
             if player.isAboveWater {
                 // Jumping
-                animatePlayer(duration: 0.2)
+                if !died {
+                    animatePlayer(duration: 0.2)
+                }
             } else {
                 // Swimming
-                animatePlayer(duration: 0.05)
+                if !died {
+                    animatePlayer(duration: 0.05)
+                }
             }
         }
     }

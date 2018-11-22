@@ -23,6 +23,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var score: Int = 0
     var died: Bool = false
     var gameStarted: Bool = false
+    var restartCount: Int = 0
+    var isFirstTouch: Bool = false
     var enableUnderwaterPhysics: Bool = true
 
     // Sprites / Nodes
@@ -33,6 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var restartButton: SKSpriteNode!
 
     // Labels
+    var tapToStartLabel: SKLabelNode!
     var scoreLabel: SKLabelNode!
 
     // Actions
@@ -59,7 +62,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.removeAllActions()
         died = false
         gameStarted = false
+        restartCount += 1
         score = 0
+        isFirstTouch = false
         createScene()
     }
 
@@ -72,7 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Background
         for i in 0..<2 {
-            let background = SKSpriteNode(imageNamed: "ocean")
+            let background = SKSpriteNode(imageNamed: "sky")
             background.anchorPoint = CGPoint(x: 0, y: 0)
             background.position = CGPoint(x:CGFloat(i) * self.frame.width, y: 0)
             background.size = CGSize(width: self.size.width, height: self.size.height)
@@ -81,20 +86,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.addChild(background)
         }
 
+        // Tap to start label
+        tapToStartLabel = SKLabelNode()
+        tapToStartLabel.fontSize = 100
+        tapToStartLabel.position = CGPoint(x: self.frame.width / 2, y: (self.frame.height / 2) - (self.frame.height / 4))
+        tapToStartLabel.zPosition = 5
+        tapToStartLabel.text = "Tap anywhere to start"
+
         // Score Label
         scoreLabel = SKLabelNode()
         scoreLabel.fontSize = 100
         scoreLabel.position = CGPoint(x: self.frame.width / 2, y: (self.frame.height / 2) + (self.frame.height / 2.5))
         scoreLabel.zPosition = 5
         scoreLabel.text = "\(score)"
-        self.addChild(scoreLabel)
 
         // Player
         createPlayer()
 
         // Water
-        water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0, green:0, blue:1, alpha:0.5))
+        water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0.05, green:0, blue:1, alpha:0.4))
         water.position = CGPoint(x:self.size.width/2, y:0)
+        water.zPosition = 3
         self.addChild(water)
         water.setDefaultValues()
 
@@ -115,6 +127,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Scene
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        if restartCount > 0 {
+            self.addChild(scoreLabel)
+            self.run(spawnDelayForever)
+        } else {
+            self.addChild(tapToStartLabel)
+        }
     }
 
     override func didMove(to view: SKView) {
@@ -187,6 +205,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !gameStarted {
+            isFirstTouch = true
+            gameStarted = true
+            if restartCount == 0 {
+                self.addChild(scoreLabel)
+                tapToStartLabel.run(SKAction.removeFromParent())
+                self.run(spawnDelayForever)
+                return
+            }
+        }
         if died || !gameStarted {
             return
         }
@@ -197,17 +225,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !gameStarted {
-            self.run(spawnDelayForever)
-            gameStarted = true
+        enableUnderwaterPhysics = true
+        if isFirstTouch && restartCount == 0 {
+            isFirstTouch = false
             return
         }
-        enableUnderwaterPhysics = true
-        if !died && !player.isAboveWater {
-            let playerY = player.position.y
-            player.physicsBody?.velocity = CGVector(dx: 0, dy: 6.25 * (kSurfaceHeight - playerY))
-        }
-
         for touch in touches {
             let location = touch.location(in: self)
 
@@ -216,6 +238,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     restartScene()
                 }
             }
+        }
+
+        if died || !gameStarted {
+            return
+        }
+
+        if !died && !player.isAboveWater {
+            let playerY = player.position.y
+            player.physicsBody?.velocity = CGVector(dx: 0, dy: 6.25 * (kSurfaceHeight - playerY))
         }
     }
 
@@ -227,8 +258,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let gapSize = CGFloat(350)
         let wallScale = CGFloat(0.5)
 
-        let topWall = SKSpriteNode(texture: nil, color: UIColor.black, size: CGSize(width: 80, height: 1000))
-        let bottomWall = SKSpriteNode(texture: nil, color: UIColor.black, size: CGSize(width: 80, height: 1000))
+        let topWall = SKSpriteNode(texture: nil, color: UIColor.yellow, size: CGSize(width: 80, height: 1000))
+        let bottomWall = SKSpriteNode(texture: nil, color: UIColor.yellow, size: CGSize(width: 80, height: 1000))
 
         scoreNode.size = CGSize(width: 1, height: (gapSize * 2) - (topWall.size.height * wallScale))
         scoreNode.position = CGPoint(x: self.frame.width + 25, y: self.frame.height / 2)
@@ -338,6 +369,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             })
             if !died {
                 died = true
+                enableUnderwaterPhysics = true
                 player.removeAllActions()
                 // Keep appearance of forward movement
                 player.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 0))

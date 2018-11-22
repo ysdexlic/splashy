@@ -300,7 +300,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func createWater() {
-        water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0.05, green:0, blue:1, alpha:0.4))
+        water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0, green:0, blue:1, alpha:0.4))
         water.position = CGPoint(x:self.size.width/2, y:0)
         water.zPosition = 3
         water.setDefaultValues()
@@ -405,9 +405,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func runDeathAnimation() {
         if !ranDeathAnimation {
             ranDeathAnimation = true
-            player.physicsBody?.angularVelocity = 0
             let rotateAction = SKAction.rotate(toAngle: .pi, duration: 1.5, shortestUnitArc: true)
-            player.run(rotateAction)
+            player.run(rotateAction, completion: {
+                self.physicsBody?.angularVelocity = 0
+            })
         }
     }
 

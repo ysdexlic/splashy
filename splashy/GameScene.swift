@@ -15,6 +15,7 @@ struct PhysicsCategory {
     static let Player: UInt32 = 0x1 << 1
     static let Wall: UInt32 = 0x1 << 2
     static let Score: UInt32 = 0x1 << 3
+    static let Water: UInt32 = 0x1 << 4
 }
 
 
@@ -30,6 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Sprites / Nodes
     var player: Player!
     var water: SBDynamicWaterNode!
+    var waterNode: SKSpriteNode!
     var wallPair: SKNode!
     var scoreNode: SKSpriteNode!
     var restartButton: SKSpriteNode!
@@ -37,10 +39,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Labels
     var tapToStartLabel: SKLabelNode!
     var scoreLabel: SKLabelNode!
-
-    // Actions
-    var spawnDelayForever: SKAction!
-    var moveAndRemove: SKAction!
 
     // Player Animation
     var swimmingFrames: [SKTexture] = []
@@ -104,32 +102,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createPlayer()
 
         // Water
-        water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0.05, green:0, blue:1, alpha:0.4))
-        water.position = CGPoint(x:self.size.width/2, y:0)
-        water.zPosition = 3
-        self.addChild(water)
-        water.setDefaultValues()
-
-        // Walls
-        let spawn = SKAction.run {
-            () in
-            self.createWalls()
-        }
-
-        let delay = SKAction.wait(forDuration: 2.0)
-        let spawnDelay = SKAction.sequence([spawn, delay])
-        spawnDelayForever = SKAction.repeatForever(spawnDelay)
-
-        let distance = CGFloat(self.frame.width)
-        let movePipes = SKAction.moveBy(x: -distance - 50, y: 0, duration: TimeInterval(0.0025 * distance))
-        let removePipes = SKAction.removeFromParent()
-        moveAndRemove = SKAction.sequence([movePipes, removePipes])
+        createWater()
 
         // Scene
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         if restartCount > 0 {
             self.addChild(scoreLabel)
-            self.run(spawnDelayForever)
+            startGame()
         } else {
             self.addChild(tapToStartLabel)
         }
@@ -211,7 +190,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if restartCount == 0 {
                 self.addChild(scoreLabel)
                 tapToStartLabel.run(SKAction.removeFromParent())
-                self.run(spawnDelayForever)
+                startGame()
                 return
             }
         }
@@ -251,6 +230,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func createWalls() {
+
+        // wall actions
+        let distance = CGFloat(self.frame.width)
+        let movePipes = SKAction.moveBy(x: -distance - 50, y: 0, duration: TimeInterval(0.0025 * distance))
+        let removePipes = SKAction.removeFromParent()
+        let moveAndRemove = SKAction.sequence([movePipes, removePipes])
+
         scoreNode = SKSpriteNode()
         wallPair = SKNode()
         wallPair.name = "wallPair"
@@ -304,6 +290,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(wallPair)
     }
 
+    func createWater() {
+        water = SBDynamicWaterNode(width: Float(self.size.width), numJoints:150, surfaceHeight:Float(kSurfaceHeight), fillColour: UIColor(red:0.05, green:0, blue:1, alpha:0.4))
+        water.position = CGPoint(x:self.size.width/2, y:0)
+        water.zPosition = 3
+        water.setDefaultValues()
+
+        waterNode = SKSpriteNode()
+        waterNode.size = CGSize(width: self.size.width, height: 1)
+        waterNode.position = CGPoint(x: 0, y: kSurfaceHeight)
+        waterNode.physicsBody = SKPhysicsBody(rectangleOf: waterNode.size)
+        waterNode.physicsBody?.categoryBitMask = PhysicsCategory.Water
+        waterNode.physicsBody?.collisionBitMask = 0
+        waterNode.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        waterNode.physicsBody?.affectedByGravity = false
+        waterNode.physicsBody?.isDynamic = false
+
+        water.addChild(waterNode)
+
+        self.addChild(water)
+    }
+
     func createPlayer() {
         let animatedAtlas = SKTextureAtlas(named: "dolphin")
         var frames: [SKTexture] = []
@@ -319,23 +326,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         player = Player(texture: firstFrameTexture)
         player.position = CGPoint(x:300, y:kSurfaceHeight + 50)
-        player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.size.width * 0.8, height: player.size.height * 0.8))
         player.physicsBody?.categoryBitMask = PhysicsCategory.Player
         player.physicsBody?.collisionBitMask = PhysicsCategory.Wall
-        player.physicsBody?.contactTestBitMask = PhysicsCategory.Wall | PhysicsCategory.Score
+        player.physicsBody?.contactTestBitMask = PhysicsCategory.Wall | PhysicsCategory.Score | PhysicsCategory.Water
         player.zPosition = 2
         animatePlayer()
         self.addChild(player)
     }
 
-    func animatePlayer() {
+    func animatePlayer(key: String = "swimmingDolphin", duration: TimeInterval = 0.05) {
+        player.removeAction(forKey: key)
         player.run(SKAction.repeatForever(
             SKAction.animate(with: swimmingFrames,
-                             timePerFrame: 0.05,
+                             timePerFrame: duration,
                              resize: false,
                              restore: true)
             ),
-            withKey:"swimmingDolphin"
+            withKey: key
         )
     }
 
@@ -353,15 +361,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         restartButton.run(SKAction.scale(to: 1.0, duration: 0.25))
     }
 
+    func startGame() {
+        let spawn = SKAction.run {
+            () in
+            self.createWalls()
+        }
+        let delay = SKAction.wait(forDuration: 2.0)
+        let spawnDelay = SKAction.sequence([spawn, delay])
+        let spawnDelayForever = SKAction.repeatForever(spawnDelay)
+        self.run(spawnDelayForever)
+    }
+
     func didBegin(_ contact: SKPhysicsContact) {
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
 
+        // Player scored a point
         if !died && (firstBody.categoryBitMask == PhysicsCategory.Score && secondBody.categoryBitMask == PhysicsCategory.Player || firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Score) {
             score += 1
             scoreLabel.text = "\(score)"
         }
 
+        // Player hits wall
         if firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Wall || firstBody.categoryBitMask == PhysicsCategory.Wall && secondBody.categoryBitMask == PhysicsCategory.Player {
             enumerateChildNodes(withName: "wallPair", using: { (node, error) in
                 node.speed = 0
@@ -374,6 +395,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 // Keep appearance of forward movement
                 player.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 0))
                 createRestartButton()
+            }
+        }
+    }
+
+    func didEnd(_ contact: SKPhysicsContact) {
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
+
+        // Player hits water
+        if !died && (firstBody.categoryBitMask == PhysicsCategory.Player && secondBody.categoryBitMask == PhysicsCategory.Water || firstBody.categoryBitMask == PhysicsCategory.Water && secondBody.categoryBitMask == PhysicsCategory.Player) {
+            if player.isAboveWater {
+                // Jumping
+                animatePlayer(duration: 0.2)
+            } else {
+                // Swimming
+                animatePlayer(duration: 0.05)
             }
         }
     }

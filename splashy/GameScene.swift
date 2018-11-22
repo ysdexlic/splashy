@@ -21,6 +21,7 @@ struct PhysicsCategory {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     // Defaults
+    var highScore: Int = UserDefaults.standard.integer(forKey: "splashy_highscore")
     var score: Int = 0
     var died: Bool = false
     var gameStarted: Bool = false
@@ -41,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var restartButton: SKSpriteNode!
 
     // Labels
-    var tapToStartLabel: SKLabelNode!
+    var textLabel: SKLabelNode!
     var scoreLabel: SKLabelNode!
 
     // Player Animation
@@ -60,7 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.removeAllActions()
         died = false
         ranDeathAnimation = false
-        gameStarted = false
+        gameStarted = true
         restartCount += 1
         score = 0
         isFirstTouch = false
@@ -84,18 +85,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         // Tap to start label
-        tapToStartLabel = SKLabelNode()
-        tapToStartLabel.fontSize = 100
-        tapToStartLabel.position = CGPoint(x: self.frame.width / 2, y: (self.frame.height / 2) - (self.frame.height / 4))
-        tapToStartLabel.zPosition = 5
-        tapToStartLabel.text = "Tap anywhere to start"
+        textLabel = SKLabelNode()
+        textLabel.fontSize = 100
+        textLabel.position = CGPoint(x: self.frame.width / 2, y: (self.frame.height / 2) - (self.frame.height / 4))
+        textLabel.zPosition = 5
+        textLabel.text = "Tap anywhere to start"
 
         // Score Label
         scoreLabel = SKLabelNode()
         scoreLabel.fontSize = 100
         scoreLabel.position = CGPoint(x: self.frame.width / 2, y: (self.frame.height / 2) + (self.frame.height / 2.5))
         scoreLabel.zPosition = 5
-        scoreLabel.text = "\(score)"
+        scoreLabel.text = gameStarted ? "\(score)" : "High Score: \(highScore)"
+        self.addChild(scoreLabel)
 
         // Player
         createPlayer()
@@ -106,10 +108,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Scene
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         if restartCount > 0 {
-            self.addChild(scoreLabel)
             startGame()
         } else {
-            self.addChild(tapToStartLabel)
+            self.addChild(textLabel)
         }
     }
 
@@ -198,8 +199,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             isFirstTouch = true
             gameStarted = true
             if restartCount == 0 {
-                self.addChild(scoreLabel)
-                tapToStartLabel.run(SKAction.removeFromParent())
+                textLabel.run(SKAction.removeFromParent())
                 startGame()
                 return
             }
@@ -240,7 +240,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func createWalls() {
-
         // wall actions
         let distance = CGFloat(self.frame.width)
         let movePipes = SKAction.moveBy(x: -distance - 50, y: 0, duration: TimeInterval(0.0025 * distance))
@@ -369,9 +368,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         restartButton.addChild(restartText)
         self.addChild(restartButton)
         restartButton.run(SKAction.scale(to: 1.0, duration: 0.25))
+
+        textLabel.text = "High Score: \(highScore)"
+        self.addChild(textLabel)
     }
 
     func startGame() {
+        scoreLabel.text = "\(score)"
         let spawn = SKAction.run {
             () in
             self.createWalls()
@@ -380,6 +383,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spawnDelay = SKAction.sequence([spawn, delay])
         let spawnDelayForever = SKAction.repeatForever(spawnDelay)
         self.run(spawnDelayForever)
+    }
+
+    func onDeath() {
+        died = true
+        ranDeathAnimation = false
+        enableUnderwaterPhysics = true
+        // Keep appearance of forward movement
+        player.physicsBody?.applyImpulse(CGVector(dx: 20, dy: 0))
+        player.removeAllActions()
+
+        if score > highScore {
+            highScore = score
+            UserDefaults.standard.set(score, forKey: "splashy_highscore")
+            UserDefaults.standard.synchronize()
+        }
+
+        createRestartButton()
     }
 
     func runDeathAnimation() {
@@ -408,13 +428,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.removeAllActions()
             })
             if !died {
-                died = true
-                ranDeathAnimation = false
-                enableUnderwaterPhysics = true
-                // Keep appearance of forward movement
-                player.physicsBody?.applyImpulse(CGVector(dx: 20, dy: 0))
-                player.removeAllActions()
-                createRestartButton()
+                onDeath()
             }
         }
 

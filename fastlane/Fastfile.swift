@@ -10,7 +10,7 @@ import Foundation
 
 class Fastfile: LaneFile {
 	func betaLane() {
-	desc("Push a new beta build to TestFlight")
+        desc("Push a new beta build to TestFlight")
 		buildApp(workspace: "splashy.xcworkspace", scheme: "splashy")
 		uploadToTestflight(username: "david.arthur.thompson@gmail.com")
 	}

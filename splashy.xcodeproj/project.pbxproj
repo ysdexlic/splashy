@@ -10,6 +10,38 @@
 		29BC1BF7BB0CEE987B09A2E5 /* Pods_splashyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6E0FA34A5DED07345623769 /* Pods_splashyTests.framework */; };
 		632F613021A379D100B80D6E /* SBDynamicWaterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F612F21A379D100B80D6E /* SBDynamicWaterNode.m */; };
 		633D7ABF21A3FF50007118C4 /* player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D7ABE21A3FF50007118C4 /* player.swift */; };
+		6349C0D421A86089005F15A7 /* Fastfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0AC21A86089005F15A7 /* Fastfile.swift */; };
+		6349C0D521A86089005F15A7 /* LaneFileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0AE21A86089005F15A7 /* LaneFileProtocol.swift */; };
+		6349C0D621A86089005F15A7 /* RubyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0AF21A86089005F15A7 /* RubyCommand.swift */; };
+		6349C0D721A86089005F15A7 /* Fastlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B021A86089005F15A7 /* Fastlane.swift */; };
+		6349C0D821A86089005F15A7 /* Fastfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B121A86089005F15A7 /* Fastfile.swift */; };
+		6349C0D921A86089005F15A7 /* ControlCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B221A86089005F15A7 /* ControlCommand.swift */; };
+		6349C0DA21A86089005F15A7 /* ScanfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B321A86089005F15A7 /* ScanfileProtocol.swift */; };
+		6349C0DB21A86089005F15A7 /* Snapshotfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B421A86089005F15A7 /* Snapshotfile.swift */; };
+		6349C0DC21A86089005F15A7 /* Runner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B521A86089005F15A7 /* Runner.swift */; };
+		6349C0DD21A86089005F15A7 /* ScreengrabfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B621A86089005F15A7 /* ScreengrabfileProtocol.swift */; };
+		6349C0DE21A86089005F15A7 /* RubyCommandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B721A86089005F15A7 /* RubyCommandable.swift */; };
+		6349C0DF21A86089005F15A7 /* GymfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B821A86089005F15A7 /* GymfileProtocol.swift */; };
+		6349C0E021A86089005F15A7 /* SocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0B921A86089005F15A7 /* SocketResponse.swift */; };
+		6349C0E121A86089005F15A7 /* SnapshotfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0BA21A86089005F15A7 /* SnapshotfileProtocol.swift */; };
+		6349C0E221A86089005F15A7 /* ArgumentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0BB21A86089005F15A7 /* ArgumentProcessor.swift */; };
+		6349C0E321A86089005F15A7 /* Scanfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0BC21A86089005F15A7 /* Scanfile.swift */; };
+		6349C0E421A86089005F15A7 /* Gymfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0BD21A86089005F15A7 /* Gymfile.swift */; };
+		6349C0E521A86089005F15A7 /* DeliverfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0BE21A86089005F15A7 /* DeliverfileProtocol.swift */; };
+		6349C0E621A86089005F15A7 /* PrecheckfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0BF21A86089005F15A7 /* PrecheckfileProtocol.swift */; };
+		6349C0E721A86089005F15A7 /* SocketClientDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C021A86089005F15A7 /* SocketClientDelegateProtocol.swift */; };
+		6349C0E821A86089005F15A7 /* upgrade_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6349C0C121A86089005F15A7 /* upgrade_manifest.json */; };
+		6349C0E921A86089005F15A7 /* RunnerArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C221A86089005F15A7 /* RunnerArgument.swift */; };
+		6349C0EA21A86089005F15A7 /* Precheckfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C321A86089005F15A7 /* Precheckfile.swift */; };
+		6349C0EB21A86089005F15A7 /* Appfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C421A86089005F15A7 /* Appfile.swift */; };
+		6349C0EC21A86089005F15A7 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C521A86089005F15A7 /* main.swift */; };
+		6349C0ED21A86089005F15A7 /* Deliverfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C621A86089005F15A7 /* Deliverfile.swift */; };
+		6349C0EE21A86089005F15A7 /* MatchfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C721A86089005F15A7 /* MatchfileProtocol.swift */; };
+		6349C0EF21A86089005F15A7 /* Screengrabfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C821A86089005F15A7 /* Screengrabfile.swift */; };
+		6349C0F021A86089005F15A7 /* Matchfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0C921A86089005F15A7 /* Matchfile.swift */; };
+		6349C0F121A86089005F15A7 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6349C0CE21A86089005F15A7 /* README.txt */; };
+		6349C0F221A86089005F15A7 /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0CF21A86089005F15A7 /* SocketClient.swift */; };
+		6349C0F321A86089005F15A7 /* Appfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6349C0D021A86089005F15A7 /* Appfile.swift */; };
 		634A976A21A41432009263BD /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = 632F612821A3769600B80D6E /* Droplet.png */; };
 		63DBF53021A35BAC000B7160 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DBF52F21A35BAC000B7160 /* AppDelegate.swift */; };
 		63DBF53221A35BAC000B7160 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 63DBF53121A35BAC000B7160 /* GameScene.sks */; };
@@ -28,6 +60,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6349C0D221A86089005F15A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6349C0CB21A86089005F15A7 /* FastlaneSwiftRunner.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D556D6A91F6A08F5003108E3;
+			remoteInfo = FastlaneRunner;
+		};
 		63DBF54721A35BAE000B7160 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63DBF52421A35BAC000B7160 /* Project object */;
@@ -53,7 +92,40 @@
 		632F612E21A379D100B80D6E /* splashy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "splashy-Bridging-Header.h"; sourceTree = "<group>"; };
 		632F612F21A379D100B80D6E /* SBDynamicWaterNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBDynamicWaterNode.m; sourceTree = "<group>"; };
 		633D7ABE21A3FF50007118C4 /* player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = player.swift; sourceTree = "<group>"; };
-		63DBF52C21A35BAC000B7160 /* splashy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = splashy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6349C0AC21A86089005F15A7 /* Fastfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fastfile.swift; sourceTree = "<group>"; };
+		6349C0AE21A86089005F15A7 /* LaneFileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaneFileProtocol.swift; sourceTree = "<group>"; };
+		6349C0AF21A86089005F15A7 /* RubyCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubyCommand.swift; sourceTree = "<group>"; };
+		6349C0B021A86089005F15A7 /* Fastlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fastlane.swift; sourceTree = "<group>"; };
+		6349C0B121A86089005F15A7 /* Fastfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fastfile.swift; sourceTree = "<group>"; };
+		6349C0B221A86089005F15A7 /* ControlCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlCommand.swift; sourceTree = "<group>"; };
+		6349C0B321A86089005F15A7 /* ScanfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanfileProtocol.swift; sourceTree = "<group>"; };
+		6349C0B421A86089005F15A7 /* Snapshotfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snapshotfile.swift; sourceTree = "<group>"; };
+		6349C0B521A86089005F15A7 /* Runner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runner.swift; sourceTree = "<group>"; };
+		6349C0B621A86089005F15A7 /* ScreengrabfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreengrabfileProtocol.swift; sourceTree = "<group>"; };
+		6349C0B721A86089005F15A7 /* RubyCommandable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubyCommandable.swift; sourceTree = "<group>"; };
+		6349C0B821A86089005F15A7 /* GymfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymfileProtocol.swift; sourceTree = "<group>"; };
+		6349C0B921A86089005F15A7 /* SocketResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketResponse.swift; sourceTree = "<group>"; };
+		6349C0BA21A86089005F15A7 /* SnapshotfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotfileProtocol.swift; sourceTree = "<group>"; };
+		6349C0BB21A86089005F15A7 /* ArgumentProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentProcessor.swift; sourceTree = "<group>"; };
+		6349C0BC21A86089005F15A7 /* Scanfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanfile.swift; sourceTree = "<group>"; };
+		6349C0BD21A86089005F15A7 /* Gymfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gymfile.swift; sourceTree = "<group>"; };
+		6349C0BE21A86089005F15A7 /* DeliverfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverfileProtocol.swift; sourceTree = "<group>"; };
+		6349C0BF21A86089005F15A7 /* PrecheckfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrecheckfileProtocol.swift; sourceTree = "<group>"; };
+		6349C0C021A86089005F15A7 /* SocketClientDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketClientDelegateProtocol.swift; sourceTree = "<group>"; };
+		6349C0C121A86089005F15A7 /* upgrade_manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = upgrade_manifest.json; sourceTree = "<group>"; };
+		6349C0C221A86089005F15A7 /* RunnerArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerArgument.swift; sourceTree = "<group>"; };
+		6349C0C321A86089005F15A7 /* Precheckfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Precheckfile.swift; sourceTree = "<group>"; };
+		6349C0C421A86089005F15A7 /* Appfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appfile.swift; sourceTree = "<group>"; };
+		6349C0C521A86089005F15A7 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		6349C0C621A86089005F15A7 /* Deliverfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deliverfile.swift; sourceTree = "<group>"; };
+		6349C0C721A86089005F15A7 /* MatchfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchfileProtocol.swift; sourceTree = "<group>"; };
+		6349C0C821A86089005F15A7 /* Screengrabfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screengrabfile.swift; sourceTree = "<group>"; };
+		6349C0C921A86089005F15A7 /* Matchfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matchfile.swift; sourceTree = "<group>"; };
+		6349C0CB21A86089005F15A7 /* FastlaneSwiftRunner.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = FastlaneSwiftRunner.xcodeproj; sourceTree = "<group>"; };
+		6349C0CE21A86089005F15A7 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		6349C0CF21A86089005F15A7 /* SocketClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
+		6349C0D021A86089005F15A7 /* Appfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appfile.swift; sourceTree = "<group>"; };
+		63DBF52C21A35BAC000B7160 /* splashy-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "splashy-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DBF52F21A35BAC000B7160 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63DBF53121A35BAC000B7160 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		63DBF53321A35BAC000B7160 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -140,6 +212,70 @@
 			path = player;
 			sourceTree = "<group>";
 		};
+		6349C0AB21A86089005F15A7 /* fastlane */ = {
+			isa = PBXGroup;
+			children = (
+				6349C0AC21A86089005F15A7 /* Fastfile.swift */,
+				6349C0AD21A86089005F15A7 /* swift */,
+				6349C0D021A86089005F15A7 /* Appfile.swift */,
+			);
+			path = fastlane;
+			sourceTree = "<group>";
+		};
+		6349C0AD21A86089005F15A7 /* swift */ = {
+			isa = PBXGroup;
+			children = (
+				6349C0AE21A86089005F15A7 /* LaneFileProtocol.swift */,
+				6349C0AF21A86089005F15A7 /* RubyCommand.swift */,
+				6349C0B021A86089005F15A7 /* Fastlane.swift */,
+				6349C0B121A86089005F15A7 /* Fastfile.swift */,
+				6349C0B221A86089005F15A7 /* ControlCommand.swift */,
+				6349C0B321A86089005F15A7 /* ScanfileProtocol.swift */,
+				6349C0B421A86089005F15A7 /* Snapshotfile.swift */,
+				6349C0B521A86089005F15A7 /* Runner.swift */,
+				6349C0B621A86089005F15A7 /* ScreengrabfileProtocol.swift */,
+				6349C0B721A86089005F15A7 /* RubyCommandable.swift */,
+				6349C0B821A86089005F15A7 /* GymfileProtocol.swift */,
+				6349C0B921A86089005F15A7 /* SocketResponse.swift */,
+				6349C0BA21A86089005F15A7 /* SnapshotfileProtocol.swift */,
+				6349C0BB21A86089005F15A7 /* ArgumentProcessor.swift */,
+				6349C0BC21A86089005F15A7 /* Scanfile.swift */,
+				6349C0BD21A86089005F15A7 /* Gymfile.swift */,
+				6349C0BE21A86089005F15A7 /* DeliverfileProtocol.swift */,
+				6349C0BF21A86089005F15A7 /* PrecheckfileProtocol.swift */,
+				6349C0C021A86089005F15A7 /* SocketClientDelegateProtocol.swift */,
+				6349C0C121A86089005F15A7 /* upgrade_manifest.json */,
+				6349C0C221A86089005F15A7 /* RunnerArgument.swift */,
+				6349C0C321A86089005F15A7 /* Precheckfile.swift */,
+				6349C0C421A86089005F15A7 /* Appfile.swift */,
+				6349C0C521A86089005F15A7 /* main.swift */,
+				6349C0C621A86089005F15A7 /* Deliverfile.swift */,
+				6349C0C721A86089005F15A7 /* MatchfileProtocol.swift */,
+				6349C0C821A86089005F15A7 /* Screengrabfile.swift */,
+				6349C0C921A86089005F15A7 /* Matchfile.swift */,
+				6349C0CA21A86089005F15A7 /* FastlaneSwiftRunner */,
+				6349C0CF21A86089005F15A7 /* SocketClient.swift */,
+			);
+			path = swift;
+			sourceTree = "<group>";
+		};
+		6349C0CA21A86089005F15A7 /* FastlaneSwiftRunner */ = {
+			isa = PBXGroup;
+			children = (
+				6349C0CB21A86089005F15A7 /* FastlaneSwiftRunner.xcodeproj */,
+				6349C0CE21A86089005F15A7 /* README.txt */,
+			);
+			path = FastlaneSwiftRunner;
+			sourceTree = "<group>";
+		};
+		6349C0CC21A86089005F15A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6349C0D321A86089005F15A7 /* FastlaneRunner */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		63DBF52321A35BAC000B7160 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +285,7 @@
 				63DBF52D21A35BAC000B7160 /* Products */,
 				02680E08453A00C6E36F7C70 /* Pods */,
 				792CAD6C3501CAE31DD35F7C /* Frameworks */,
+				6349C0AB21A86089005F15A7 /* fastlane */,
 			);
 			sourceTree = "<group>";
 			tabWidth = 4;
@@ -156,7 +293,7 @@
 		63DBF52D21A35BAC000B7160 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				63DBF52C21A35BAC000B7160 /* splashy.app */,
+				63DBF52C21A35BAC000B7160 /* splashy-dev.app */,
 				63DBF54621A35BAE000B7160 /* splashyTests.xctest */,
 				63DBF55121A35BAE000B7160 /* splashyUITests.xctest */,
 			);
@@ -228,7 +365,7 @@
 			);
 			name = splashy;
 			productName = splashy;
-			productReference = 63DBF52C21A35BAC000B7160 /* splashy.app */;
+			productReference = 63DBF52C21A35BAC000B7160 /* splashy-dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		63DBF54521A35BAE000B7160 /* splashyTests */ = {
@@ -304,6 +441,12 @@
 			mainGroup = 63DBF52321A35BAC000B7160;
 			productRefGroup = 63DBF52D21A35BAC000B7160 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 6349C0CC21A86089005F15A7 /* Products */;
+					ProjectRef = 6349C0CB21A86089005F15A7 /* FastlaneSwiftRunner.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				63DBF52B21A35BAC000B7160 /* splashy */,
@@ -313,14 +456,26 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		6349C0D321A86089005F15A7 /* FastlaneRunner */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = FastlaneRunner;
+			remoteRef = 6349C0D221A86089005F15A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		63DBF52A21A35BAC000B7160 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				634A976A21A41432009263BD /* Droplet.png in Resources */,
+				6349C0F121A86089005F15A7 /* README.txt in Resources */,
 				63DBF53B21A35BAC000B7160 /* Main.storyboard in Resources */,
 				63DBF53221A35BAC000B7160 /* GameScene.sks in Resources */,
+				6349C0E821A86089005F15A7 /* upgrade_manifest.json in Resources */,
 				63FD77C521A60BCB00E38F4F /* dolphin.atlas in Resources */,
 				63DBF53D21A35BAE000B7160 /* Assets.xcassets in Resources */,
 				63DBF54021A35BAE000B7160 /* LaunchScreen.storyboard in Resources */,
@@ -418,12 +573,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6349C0E321A86089005F15A7 /* Scanfile.swift in Sources */,
+				6349C0E621A86089005F15A7 /* PrecheckfileProtocol.swift in Sources */,
+				6349C0E521A86089005F15A7 /* DeliverfileProtocol.swift in Sources */,
+				6349C0D621A86089005F15A7 /* RubyCommand.swift in Sources */,
+				6349C0E921A86089005F15A7 /* RunnerArgument.swift in Sources */,
+				6349C0D721A86089005F15A7 /* Fastlane.swift in Sources */,
+				6349C0E021A86089005F15A7 /* SocketResponse.swift in Sources */,
+				6349C0F021A86089005F15A7 /* Matchfile.swift in Sources */,
 				63DBF53621A35BAC000B7160 /* GameScene.swift in Sources */,
+				6349C0D421A86089005F15A7 /* Fastfile.swift in Sources */,
+				6349C0F221A86089005F15A7 /* SocketClient.swift in Sources */,
+				6349C0EF21A86089005F15A7 /* Screengrabfile.swift in Sources */,
+				6349C0D821A86089005F15A7 /* Fastfile.swift in Sources */,
+				6349C0EB21A86089005F15A7 /* Appfile.swift in Sources */,
+				6349C0DD21A86089005F15A7 /* ScreengrabfileProtocol.swift in Sources */,
 				63DBF53821A35BAC000B7160 /* GameViewController.swift in Sources */,
+				6349C0D521A86089005F15A7 /* LaneFileProtocol.swift in Sources */,
+				6349C0ED21A86089005F15A7 /* Deliverfile.swift in Sources */,
+				6349C0E721A86089005F15A7 /* SocketClientDelegateProtocol.swift in Sources */,
+				6349C0D921A86089005F15A7 /* ControlCommand.swift in Sources */,
+				6349C0EE21A86089005F15A7 /* MatchfileProtocol.swift in Sources */,
+				6349C0DF21A86089005F15A7 /* GymfileProtocol.swift in Sources */,
+				6349C0E121A86089005F15A7 /* SnapshotfileProtocol.swift in Sources */,
+				6349C0DE21A86089005F15A7 /* RubyCommandable.swift in Sources */,
 				632F613021A379D100B80D6E /* SBDynamicWaterNode.m in Sources */,
 				63FD77C321A5B0AB00E38F4F /* utils.swift in Sources */,
+				6349C0DA21A86089005F15A7 /* ScanfileProtocol.swift in Sources */,
 				633D7ABF21A3FF50007118C4 /* player.swift in Sources */,
+				6349C0DC21A86089005F15A7 /* Runner.swift in Sources */,
+				6349C0F321A86089005F15A7 /* Appfile.swift in Sources */,
 				63DBF53021A35BAC000B7160 /* AppDelegate.swift in Sources */,
+				6349C0E221A86089005F15A7 /* ArgumentProcessor.swift in Sources */,
+				6349C0EC21A86089005F15A7 /* main.swift in Sources */,
+				6349C0E421A86089005F15A7 /* Gymfile.swift in Sources */,
+				6349C0EA21A86089005F15A7 /* Precheckfile.swift in Sources */,
+				6349C0DB21A86089005F15A7 /* Snapshotfile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,7 +733,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thebeardydeveloper.splashy.beta;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)-beta";
 				SWIFT_OBJC_BRIDGING_HEADER = "splashy/SBDynamicWaterNode/splashy-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -730,7 +915,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thebeardydeveloper.splashy.debug;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)-dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "splashy/SBDynamicWaterNode/splashy-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;

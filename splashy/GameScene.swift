@@ -9,6 +9,7 @@
 
 import SpriteKit
 import GameplayKit
+import GoogleMobileAds
 
 
 struct PhysicsCategory {
@@ -20,6 +21,11 @@ struct PhysicsCategory {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    // Ads
+    let AD_UNIT_ID = "ca-app-pub-5145666110251031/9910454975"
+    let TEST_AD_UNIT_ID = "ca-app-pub-3940256099942544/4411468910"
+    var interstitial: GADInterstitial!
+
     // Defaults
     var highScore: Int = UserDefaults.standard.integer(forKey: "splashy_highscore")
     var score: Int = 0
@@ -69,6 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func createScene() {
+        interstitial = GADInterstitial(adUnitID: TEST_AD_UNIT_ID)
         self.physicsWorld.contactDelegate = self
 
         kSurfaceHeight = self.size.height / 2.5

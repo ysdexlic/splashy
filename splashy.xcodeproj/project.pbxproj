@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29BC1BF7BB0CEE987B09A2E5 /* Pods_splashyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6E0FA34A5DED07345623769 /* Pods_splashyTests.framework */; };
 		632F613021A379D100B80D6E /* SBDynamicWaterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F612F21A379D100B80D6E /* SBDynamicWaterNode.m */; };
 		633D7ABF21A3FF50007118C4 /* player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D7ABE21A3FF50007118C4 /* player.swift */; };
 		634A976A21A41432009263BD /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = 632F612821A3769600B80D6E /* Droplet.png */; };
@@ -22,6 +23,8 @@
 		63DBF55621A35BAE000B7160 /* splashyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DBF55521A35BAE000B7160 /* splashyUITests.swift */; };
 		63FD77C321A5B0AB00E38F4F /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD77C221A5B0AB00E38F4F /* utils.swift */; };
 		63FD77C521A60BCB00E38F4F /* dolphin.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 63FD77C421A60BCB00E38F4F /* dolphin.atlas */; };
+		744CF802450AD2DDFF624715 /* Pods_splashy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86078300FDFD0B236B207AE5 /* Pods_splashy.framework */; };
+		DD592CDAA2D570761177F788 /* Pods_splashyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 354E2451F0752B05EAE412DE /* Pods_splashyUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		354E2451F0752B05EAE412DE /* Pods_splashyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_splashyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		35F64ABAD93F85D287A52895 /* Pods-splashy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splashy.release.xcconfig"; path = "Pods/Target Support Files/Pods-splashy/Pods-splashy.release.xcconfig"; sourceTree = "<group>"; };
+		5CA7E471596BB6E16CEFEC31 /* Pods-splashyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splashyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-splashyTests/Pods-splashyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		632F612821A3769600B80D6E /* Droplet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Droplet.png; sourceTree = "<group>"; };
 		632F612D21A379AA00B80D6E /* SBDynamicWaterNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBDynamicWaterNode.h; sourceTree = "<group>"; };
 		632F612E21A379D100B80D6E /* splashy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "splashy-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -65,6 +71,12 @@
 		63DBF55721A35BAE000B7160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63FD77C221A5B0AB00E38F4F /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		63FD77C421A60BCB00E38F4F /* dolphin.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dolphin.atlas; sourceTree = "<group>"; };
+		86078300FDFD0B236B207AE5 /* Pods_splashy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_splashy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6E0FA34A5DED07345623769 /* Pods_splashyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_splashyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD2C2DF3F5FCED4D5DFC5C55 /* Pods-splashy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splashy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-splashy/Pods-splashy.debug.xcconfig"; sourceTree = "<group>"; };
+		B8D991AAC0F4DC655E35936D /* Pods-splashyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splashyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-splashyTests/Pods-splashyTests.release.xcconfig"; sourceTree = "<group>"; };
+		CD3B712EDF73ABFF478798C2 /* Pods-splashyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splashyUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-splashyUITests/Pods-splashyUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FA9363CB63A5A310289F3556 /* Pods-splashyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splashyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-splashyUITests/Pods-splashyUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				744CF802450AD2DDFF624715 /* Pods_splashy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29BC1BF7BB0CEE987B09A2E5 /* Pods_splashyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,12 +100,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD592CDAA2D570761177F788 /* Pods_splashyUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02680E08453A00C6E36F7C70 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AD2C2DF3F5FCED4D5DFC5C55 /* Pods-splashy.debug.xcconfig */,
+				35F64ABAD93F85D287A52895 /* Pods-splashy.release.xcconfig */,
+				5CA7E471596BB6E16CEFEC31 /* Pods-splashyTests.debug.xcconfig */,
+				B8D991AAC0F4DC655E35936D /* Pods-splashyTests.release.xcconfig */,
+				CD3B712EDF73ABFF478798C2 /* Pods-splashyUITests.debug.xcconfig */,
+				FA9363CB63A5A310289F3556 /* Pods-splashyUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		632F612721A3769600B80D6E /* SBDynamicWaterNode */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +147,8 @@
 				63DBF54921A35BAE000B7160 /* splashyTests */,
 				63DBF55421A35BAE000B7160 /* splashyUITests */,
 				63DBF52D21A35BAC000B7160 /* Products */,
+				02680E08453A00C6E36F7C70 /* Pods */,
+				792CAD6C3501CAE31DD35F7C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 			tabWidth = 4;
@@ -170,6 +200,16 @@
 			path = splashyUITests;
 			sourceTree = "<group>";
 		};
+		792CAD6C3501CAE31DD35F7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86078300FDFD0B236B207AE5 /* Pods_splashy.framework */,
+				A6E0FA34A5DED07345623769 /* Pods_splashyTests.framework */,
+				354E2451F0752B05EAE412DE /* Pods_splashyUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -177,6 +217,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63DBF55A21A35BAE000B7160 /* Build configuration list for PBXNativeTarget "splashy" */;
 			buildPhases = (
+				266F7AA969AF88611A982412 /* [CP] Check Pods Manifest.lock */,
 				63DBF52821A35BAC000B7160 /* Sources */,
 				63DBF52921A35BAC000B7160 /* Frameworks */,
 				63DBF52A21A35BAC000B7160 /* Resources */,
@@ -194,6 +235,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63DBF55D21A35BAE000B7160 /* Build configuration list for PBXNativeTarget "splashyTests" */;
 			buildPhases = (
+				CCE9ADD1317FCEF8F1254DB3 /* [CP] Check Pods Manifest.lock */,
 				63DBF54221A35BAE000B7160 /* Sources */,
 				63DBF54321A35BAE000B7160 /* Frameworks */,
 				63DBF54421A35BAE000B7160 /* Resources */,
@@ -212,6 +254,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63DBF56021A35BAE000B7160 /* Build configuration list for PBXNativeTarget "splashyUITests" */;
 			buildPhases = (
+				8240D8A616D00F2BC09264DF /* [CP] Check Pods Manifest.lock */,
 				63DBF54D21A35BAE000B7160 /* Sources */,
 				63DBF54E21A35BAE000B7160 /* Frameworks */,
 				63DBF54F21A35BAE000B7160 /* Resources */,
@@ -300,6 +343,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		266F7AA969AF88611A982412 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-splashy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8240D8A616D00F2BC09264DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-splashyUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCE9ADD1317FCEF8F1254DB3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-splashyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63DBF52821A35BAC000B7160 /* Sources */ = {
@@ -484,6 +596,7 @@
 		};
 		63DBF55B21A35BAE000B7160 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD2C2DF3F5FCED4D5DFC5C55 /* Pods-splashy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -505,6 +618,7 @@
 		};
 		63DBF55C21A35BAE000B7160 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35F64ABAD93F85D287A52895 /* Pods-splashy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -525,6 +639,7 @@
 		};
 		63DBF55E21A35BAE000B7160 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CA7E471596BB6E16CEFEC31 /* Pods-splashyTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -546,6 +661,7 @@
 		};
 		63DBF55F21A35BAE000B7160 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8D991AAC0F4DC655E35936D /* Pods-splashyTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -567,6 +683,7 @@
 		};
 		63DBF56121A35BAE000B7160 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD3B712EDF73ABFF478798C2 /* Pods-splashyUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -587,6 +704,7 @@
 		};
 		63DBF56221A35BAE000B7160 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA9363CB63A5A310289F3556 /* Pods-splashyUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
